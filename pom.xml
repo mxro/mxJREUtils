@@ -3,11 +3,11 @@
 <project>
 	<groupId>de.mxro.jreutils</groupId>
 	<artifactId>mxJREUtils</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 
 	<properties>
 
-		<module.gwtVersion>2.2.0</module.gwtVersion>
+		<!-- <module.gwtVersion>2.2.0</module.gwtVersion> -->
 
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
@@ -33,24 +33,24 @@
 			<version>[0.0.1,)</version>
 		</dependency>
 
-		<!-- only for gwt maven plugin!!! -->
+		<!-- only for gwt maven plugin!!!
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${module.gwtVersion}</version>
 			<scope>provided</scope>
-		</dependency>
+		</dependency> -->
 
 
 		<!-- <dependency> <groupId>de.mxro.thrd.gwtuser</groupId> <artifactId>thrdGWTUser</artifactId> 
 			<version>[0.0.2,)</version> <scope>provided</scope> </dependency> -->
 
-		<dependency>
+		<!--  <dependency>
 			<groupId>de.mxro.thrd.hamcrestgwt</groupId>
 			<artifactId>thrdHamcrestGWT</artifactId>
 			<version>[0.0.3,)</version>
 
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -113,7 +113,7 @@
 
 			<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
 			<!-- For GWT -->
-			<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+			<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXX 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
@@ -122,7 +122,7 @@
 
 					<draftCompile>${module.draftCompile}</draftCompile>
 					<logLevel>INFO</logLevel>
-					<!-- -->
+				
 					<validateOnly>true</validateOnly>
 					<gwtVersion>${module.gwtVersion}</gwtVersion>
 
@@ -139,7 +139,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 
 			<!-- FOR MAVEN ECLIPSE PLUGIN -->
 			<!-- Dependency Plugin used to copy the dependency JARs into the root 
@@ -211,7 +211,7 @@
 				<directory>src/main/java</directory>
 				<includes>
 					<include>**/*.java</include>
-					<include>**/*.gwt.xml</include>
+					<!-- <include>**/*.gwt.xml</include>-->
 				</includes>
 			</resource>
 
