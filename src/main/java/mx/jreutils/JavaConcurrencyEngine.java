@@ -11,17 +11,19 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 
 	public volatile boolean delayed = false;
 
+	volatile boolean timeout = false;
+	
 	@Override
 	public void delayTestFinish(final int duration) {
 		delayed = true;
-
+		timeout = false;
+		
 		newTimer(new Runnable() {
 
 			@Override
 			public void run() {
 				if (delayed) {
-					throw new RuntimeException(new TimeoutException(
-							"finishTest() not called in time."));
+					timeout = true;
 				}
 			}
 
@@ -31,11 +33,16 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 		while (delayed) {
 			Thread.yield();
 			try {
-				Thread.sleep(10);
+				Thread.sleep(10); 
 			} catch (final InterruptedException e) { 
 				throw new RuntimeException(e);
 			}
+			if (timeout) {
+				throw new RuntimeException(new TimeoutException(
+				"finishTest() not called in time."));
+			}
 		}
+		
 	}
 
 	@Override
