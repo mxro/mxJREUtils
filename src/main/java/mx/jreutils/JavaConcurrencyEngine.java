@@ -29,7 +29,7 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 
 		}).schedule(duration);
 
-		
+		//System.out.println("wait" +this);
 		while (delayed) {
 			Thread.yield();
 			try {
@@ -47,6 +47,7 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 
 	@Override
 	public void finishTest() {
+		//System.out.println("finishTest "+this);
 		delayed = false;
 	}
 
