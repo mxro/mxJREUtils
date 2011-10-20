@@ -41,7 +41,7 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 		final Verifyer v = new Verifyer() {
 
 			@Override
-			public void verify() {
+			public void join() {
 				try {
 					t.join();
 				} catch (final InterruptedException e) {
