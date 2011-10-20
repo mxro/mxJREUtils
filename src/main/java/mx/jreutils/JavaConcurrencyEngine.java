@@ -30,6 +30,7 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 					step.process();	
 				} catch (final Throwable _t) {
 					exceptions.add(_t);
+					throw new RuntimeException(_t);
 				}
 				
 			}
