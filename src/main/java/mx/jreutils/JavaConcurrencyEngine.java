@@ -1,10 +1,12 @@
 package mx.jreutils;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeoutException;
 
 import mx.gwtutils.ConcurrencyEngine;
+import mx.gwtutils.ThreadSpace.Step;
 import mx.gwtutils.tests.AbstractTimer;
 
 public class JavaConcurrencyEngine extends ConcurrencyEngine {
@@ -13,6 +15,44 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 
 	volatile boolean timeout = false;
 	
+	
+	/**
+	 * @see <a href="http://eyalsch.wordpress.com/2010/07/13/multithreaded-tests/">A utility for multithreaded unit tests</a> 
+	 */
+	@Override
+	public Verifyer runAsync(final Step step) {
+		final ArrayList<Throwable> exceptions = new ArrayList<Throwable>(); 
+		final Thread t = new Thread() {
+
+			@Override
+			public void run() {
+				try {
+					step.process();	
+				} catch (final Throwable _t) {
+					exceptions.add(_t);
+				}
+				
+			}
+			
+		};
+		t.start();
+		return new Verifyer() {
+
+			@Override
+			public void verify() {
+				try {
+					t.join();
+				} catch (final InterruptedException e) {
+					throw new RuntimeException(e);
+				}
+				for (final Throwable _t : exceptions) {
+					throw new RuntimeException(_t);
+				}
+			}
+			
+		};
+	}
+
 	@Override
 	public void delayTestFinish(final int duration) {
 		delayed = true;
