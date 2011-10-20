@@ -37,7 +37,8 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 			
 		};
 		t.start();
-		return new Verifyer() {
+		
+		final Verifyer v = new Verifyer() {
 
 			@Override
 			public void verify() {
@@ -52,6 +53,8 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 			}
 			
 		};
+		
+		return v;
 	}
 
 	@Override
