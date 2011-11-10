@@ -12,7 +12,8 @@ import mx.gwtutils.tests.AbstractTimer;
 public class JavaConcurrencyEngine extends ConcurrencyEngine {
 
 	public volatile boolean delayed = false;
-
+	public volatile boolean failed = false;
+	public volatile Throwable cause= null;
 	volatile boolean timeout = false;
 	
 	
@@ -74,13 +75,17 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 		}).schedule(duration);
 
 		//System.out.println("wait" +this);
-		while (delayed) {
+		while (delayed && !failed) {
 			Thread.yield();
 			try {
 				Thread.sleep(10); 
 			} catch (final InterruptedException e) { 
 				throw new RuntimeException(e);
 			}
+			if (failed) {
+				throw new RuntimeException(cause);
+			}
+			
 			if (timeout) {
 				throw new RuntimeException(new TimeoutException(
 				"finishTest() not called in time."));
@@ -125,6 +130,13 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 	@Override
 	public void yield() {
 		Thread.yield();
+	}
+
+	@Override
+	public void failTest(final Throwable t) {
+		cause = t;
+		failed = true;
+		
 	}
 
 }
