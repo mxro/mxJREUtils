@@ -33,6 +33,9 @@ public class JavaConcurrencyEngine extends ConcurrencyEngine {
 			@Override
 			public void run() {
 				try {
+					Thread.yield();
+					Thread.sleep(50);
+					Thread.yield();
 					step.process();	
 				} catch (final Throwable _t) {
 					exceptions.add(_t);
