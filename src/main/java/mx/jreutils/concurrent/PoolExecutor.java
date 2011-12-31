@@ -5,19 +5,18 @@ import java.util.concurrent.ExecutorService;
 import mx.gwtutils.concurrent.SimpleExecutor;
 
 public class PoolExecutor implements SimpleExecutor {
-	
+
 	private final ExecutorService service;
-	
+
 	@Override
-	public void execute(Runnable runnable) {
+	public void execute(final Runnable runnable) {
+		// service.execute(runnable);
 		service.submit(runnable);
 	}
 
-	public PoolExecutor(ExecutorService service) {
+	public PoolExecutor(final ExecutorService service) {
 		super();
 		this.service = service;
 	}
-	
-	
 
 }
