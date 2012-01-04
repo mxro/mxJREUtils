@@ -11,7 +11,7 @@ public class PoolExecutor implements SimpleExecutor {
 	@Override
 	public void execute(final Runnable runnable) {
 		service.execute(runnable);
-		// service.submit(runnable);
+
 	}
 
 	public PoolExecutor(final ExecutorService service) {
