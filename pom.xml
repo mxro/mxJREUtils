@@ -11,7 +11,10 @@
 
 		<module.draftCompile>true</module.draftCompile>
 		<module.importedPackages>
-			org.junit,de.mxro.thrd.hamcrest,de.mxro.thrd.hamcrest.core,
+			org.junit,
+			one.utils,
+			de.mxro.thrd.hamcrest,
+			de.mxro.thrd.hamcrest.core,
 			org.hamcrest,
 			org.hamcrest.core,
 			org.hamcrest.internal,
