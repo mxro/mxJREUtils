@@ -29,7 +29,7 @@ public class MxJREUtils {
 		if (port < 1 || port > 30000) {
 			throw new IllegalArgumentException("Invalid start port: " + port);
 		}
-	
+
 		ServerSocket ss = null;
 		DatagramSocket ds = null;
 		try {
@@ -43,7 +43,7 @@ public class MxJREUtils {
 			if (ds != null) {
 				ds.close();
 			}
-	
+
 			if (ss != null) {
 				try {
 					ss.close();
@@ -52,7 +52,7 @@ public class MxJREUtils {
 				}
 			}
 		}
-	
+
 		return false;
 	}
 
@@ -62,7 +62,7 @@ public class MxJREUtils {
 		}
 		return start;
 	}
-	
+
 	/**
 	 * 
 	 * Exceptions:<br/>
@@ -87,9 +87,12 @@ public class MxJREUtils {
 			// http://www.mxro.de:80/test/test1.xml?page=1&parameter=space+1#home
 			final String scheme = uri.getScheme(); // eg <http>
 			final String host = uri.getHost(); // eg <www.mxro.de>
+
 			String port = String.valueOf(uri.getPort()); // eg <80>
-			if (port.equals("-1"))
+			if (port.equals("-1")) {
 				port = "";
+			}
+
 			final String path = uri.getPath(); // eg </test/test1.xml>
 			final String query = uri.getQuery(); // eg <page=1>
 			final String fragment = uri.getFragment(); // eg <home>
@@ -108,16 +111,19 @@ public class MxJREUtils {
 				dir.append(scheme + "/");
 
 			if (!emptyOrNull(port)
-					&& !(port.equals("80") && scheme.equals("http")))
+					&& !(port.equals("80") && scheme.equals("http"))) {
 				dir.append(port + "/");
+			}
 
-			if (!emptyOrNull(path) && path.length() > 2)
-				dir.append(path.substring(1));
+			if (!emptyOrNull(path) && path.length() > 2) {
+				dir.append(path.substring(1).replace(":", "_"));
+			}
 
-			if (!emptyOrNull(query))
+			if (!emptyOrNull(query)) {
 				dir.append("_"
 						+ query.replaceAll("=", "_").replaceAll("&", "_")
 								.replaceAll("\\+", "_"));
+			}
 
 			if (!emptyOrNull(fragment))
 				dir.append("_" + fragment);
