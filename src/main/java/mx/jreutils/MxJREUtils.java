@@ -8,15 +8,13 @@ package mx.jreutils;
 import static mx.gwtutils.MxroGWTUtils.emptyOrNull;
 import static mx.gwtutils.MxroGWTUtils.flip;
 
-import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.ServerSocket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
 public class MxJREUtils {
 
+	// <!-- one.download https://u1.linnk.it/qc8sbw/usr/apps/textsync/docs/java-fragments-port-available -->
 	/**
 	 * Checks to see if a specific port is available.
 	 * 
@@ -30,15 +28,15 @@ public class MxJREUtils {
 			throw new IllegalArgumentException("Invalid start port: " + port);
 		}
 
-		ServerSocket ss = null;
-		DatagramSocket ds = null;
+		java.net.ServerSocket ss = null;
+		java.net.DatagramSocket ds = null;
 		try {
-			ss = new ServerSocket(port);
+			ss = new java.net.ServerSocket(port);
 			ss.setReuseAddress(true);
-			ds = new DatagramSocket(port);
+			ds = new java.net.DatagramSocket(port);
 			ds.setReuseAddress(true);
 			return true;
-		} catch (final IOException e) {
+		} catch (final java.io.IOException e) {
 		} finally {
 			if (ds != null) {
 				ds.close();
@@ -47,7 +45,7 @@ public class MxJREUtils {
 			if (ss != null) {
 				try {
 					ss.close();
-				} catch (final IOException e) {
+				} catch (final java.io.IOException e) {
 					/* should not be thrown */
 				}
 			}
@@ -55,6 +53,8 @@ public class MxJREUtils {
 
 		return false;
 	}
+
+	// <!-- one.end -->
 
 	public static int nextAvailablePort(int start) {
 		while (!portAvailable(start)) {
