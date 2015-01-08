@@ -10,8 +10,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeoutException;
 
+import de.mxro.concurrency.schedule.ThreadSpace.Step;
 import mx.gwtutils.ConcurrencyEngine;
-import mx.gwtutils.ThreadSpace.Step;
 import mx.gwtutils.tests.AbstractTimer;
 
 public class JavaConcurrencyEngine extends ConcurrencyEngine {
